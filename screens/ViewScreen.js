@@ -7,7 +7,8 @@ import ViewHeader from '../components/ViewHeader'
 const ViewScreen = ({
   navigation,
   articles,
-  toggle
+  toggle,
+  remove
 }) => {
   let id = navigation.getParam('id', -1);
   let article = articles.find((a) => {
@@ -21,6 +22,9 @@ const ViewScreen = ({
         bookmarked={article.bookmarked}
         bookmark={() => {
           toggle(id)
+        }}
+        remove={() => {
+          remove(id)
         }} />
       <ScrollView>
         <TouchableOpacity

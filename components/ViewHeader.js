@@ -10,7 +10,8 @@ const ViewHeader = ({
   navigation,
   title,
   bookmarked,
-  bookmark
+  bookmark,
+  remove
 }) => {
   return (
     <View style={styles.container}>
@@ -26,13 +27,28 @@ const ViewHeader = ({
       <Text style={styles.title}>
         {title}
       </Text>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={bookmark}
-        hitSlop={{ top : 32, bottom : 32, left : 32, right : 32 }}
-      >
-        <Ionicons name={bookmarked ? "md-heart" : "md-heart-empty"} size={24} color="#DA5746" />
-      </TouchableOpacity>
+      <View style={styles.buttonBox}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={bookmark}
+          hitSlop={{ top : 32, bottom : 32, left : 32, right : 32 }}
+          style={styles.heart}
+        >
+          <Ionicons name={bookmarked ? "md-heart" : "md-heart-empty"} size={24} color="#DA5746" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => {
+            remove();
+            console.log("1212121212");
+            navigation.goBack();
+          }}
+          hitSlop={{ top : 32, bottom : 32, left : 32, right : 32 }}
+          style={styles.trash}
+        >
+          <Ionicons name="ios-trash" size={24} color="#DA5746" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -50,6 +66,15 @@ const styles = StyleSheet.create({
     fontSize : 18,
     fontWeight : '600',
     color : '#212121',
+  },
+  buttonBox : {
+    flexDirection : 'row',
+    alignItems : 'center',
+    justifyContent : 'space-between',
+    width : 45,
+    height : 28,
+    padding : 0,
+    margin : 0
   }
 });
 

@@ -4,22 +4,34 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  Platform
+  Platform,
+  Alert
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import { withContext } from 'react-simplified-context';
 import { Ionicons } from '@expo/vector-icons';
 
 const ArticleItem = ({
   article : {
     id, title, content, date
   },
-  navigation
+  navigation,
+  remove
 }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {
         navigation.navigate('View', {id : id})
+      }}
+      onLongPress={() => {
+        Alert.alert('삭제', '삭제하시겠습니까?',[
+          {text : 'Cancel', onPress: () => console.log('Cancel Pressed')},
+          {text : 'OK', onPress: () => {
+            console.log('OK Pressed');
+            remove(id);
+          }}
+        ])
       }}
     >
       <View style={styles.container}>
@@ -40,6 +52,7 @@ const ArticleItem = ({
         </View>
       </View>
     </TouchableOpacity>
+
   );
 }
 
@@ -84,4 +97,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withNavigation(ArticleItem);
+export default withNavigation(withContext(ArticleItem));

@@ -59,6 +59,15 @@ export default class App extends React.Component {
             articles : newArticles
           }, this.save);
         }}
+        remove={(id) => {
+
+          console.log('remove function. id : ' + id);
+          this.setState({
+            articles : this.state.articles.filter((a) => {
+              return a.id !== id
+            }, this.save)
+          });
+        }}
       >
         <Navigator />
       </ContextProvider>
